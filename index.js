@@ -4,14 +4,13 @@ let tasks = [
   { id: 3, description: "fazer o almoço", checked: false },
 ];
 
-// Faça alguma coisa quando a janela carregar
+// Cria a lista e exibe na tela'
 window.onload = function () {
   tasks.forEach((task) => {
     const list = document.getElementById("todo-list");
     const toDo = document.createElement("li");
 
     toDo.textContent = task.description;
-
     list.appendChild(toDo);
   });
 };
