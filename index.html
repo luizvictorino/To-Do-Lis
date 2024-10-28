@@ -10,6 +10,25 @@
   <body>
     <main>
       <h1>Lista de tarefas</h1>
+      <section id="create-todo-section">
+        <form id="create-todo-form">
+          <input
+            type="text"
+            id="description"
+            name="description"
+            class="input-description"
+            aria-label="Qual tarefa que deseja cadastrar?"
+            placeholder="Qual tarefa que deseja cadastrar?"
+          />
+          <button
+            type="submit"
+            aria-label="Cadastrar tarefa"
+            class="add-task-btn"
+          >
+            +
+          </button>
+        </form>
+      </section>
       <section class="todo-list-section">
         <ul id="todo-list"></ul>
       </section>
