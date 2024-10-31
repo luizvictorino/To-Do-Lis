@@ -12,6 +12,20 @@ const removeTask = (taskId) => {
     .removeChild(document.getElementById(taskId));
 };
 
+const removeDoneTasks = () => {
+  const tasksToRemove = tasks
+    .filter(({ checked }) => checked)
+    .map(({ id }) => id);
+
+  tasks = tasks.filter(({ checked }) => !checked);
+
+  tasksToRemove.forEach((taskToRemove) => {
+    document
+    .getElementById('todo-list')
+    .removeChild(document.getElementById(taskToRemove))
+  })
+};
+
 const createTaskListItem = (task, checkbox) => {
   const list = document.getElementById("todo-list");
   const toDo = document.createElement("li");
@@ -25,9 +39,21 @@ const createTaskListItem = (task, checkbox) => {
   toDo.id = task.id;
   toDo.appendChild(checkbox);
   toDo.appendChild(removeTaskButton);
+
   list.appendChild(toDo);
 
   return toDo;
+};
+
+const onCheckboxClick = (event) => {
+  const [id] = event.target.id.split("-");
+
+  tasks = tasks.map((taks) => {
+    return parseInt(task.id) == parseInt(id)
+      ? { ...task, checked: event.target.checked }
+      : { task };
+    return task;
+  });
 };
 
 // Manipulação do checked-box
@@ -40,6 +66,7 @@ const getCheckboxInput = ({ id, description, checked }) => {
   checkbox.type = "checkbox";
   checkbox.id = checkboxId;
   checkbox.checked = checked || false;
+  checkbox.addEventListener("change", onCheckboxClick);
 
   label.textContent = description;
   label.htmlFor = checkboxId;
@@ -66,9 +93,10 @@ const getNewTaskData = (event) => {
 
 const createTask = (event) => {
   event.preventDefault();
-  const newTaskData = getNewTaskData(event);
 
+  const newTaskData = getNewTaskData(event);
   const checkbox = getCheckboxInput(newTaskData);
+
   createTaskListItem(newTaskData, checkbox);
 
   tasks = [
@@ -88,15 +116,16 @@ window.onload = function () {
 
   tasks.forEach((task) => {
     const checkbox = getCheckboxInput(task);
+    createTaskListItem(task, checkbox);
 
-    const list = document.getElementById("todo-list");
-    const toDo = document.createElement("li");
-    // const button = document.createElement('button')
+    // const list = document.getElementById("todo-list");
+    // const toDo = document.createElement("li");
+    // // const button = document.createElement('button')
 
-    toDo.id = task.id;
+    // toDo.id = task.id;
 
-    toDo.appendChild(checkbox);
-    // toDo.appendChild(button)
-    list.appendChild(toDo);
+    // toDo.appendChild(checkbox);
+    // // toDo.appendChild(button)
+    // list.appendChild(toDo);
   });
 };
